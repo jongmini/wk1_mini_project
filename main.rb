@@ -29,11 +29,10 @@ while choice != 'q'
 	message = ""
 	case choice
 	when "1"
-	puts pet_name
+	message = shelter.animal_list
 
 	when "2"
-	name
-
+	message = shelter.client_list
 
 	when "3"
 	puts "enter the animal's name"
@@ -42,15 +41,18 @@ while choice != 'q'
 	print "gender:"; gender = gets.chomp
 	print "species:"; species = gets.chomp
 	print "toys:"; toys = gets.chomp
-	binding.pry
-	shelter.animal_list << pet_name
 	
+	shelter.animal_list << Animal.new(pet_name,pet_age,gender,species,toys)
+
 	when "4"
 	puts "enter the client's name"
-	print "name:"; name = gets.chomp
-	print "age:"; age = gets.chomp
+	print "name:"; person_name = gets.chomp
+	print "age:"; person_age = gets.chomp
 	print "numb_of_kids:"; numb_of_kids = gets.chomp
 	print "pets:"; pets = gets.chomp
+
+	shelter.client_list << Client.new(person_name,person_age,numb_of_kids,pets)
+
 	# when 
 	# when 
 	# when 

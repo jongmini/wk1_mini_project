@@ -3,9 +3,9 @@ class Client
 
 	attr_accessor :name, :age, :numb_of_kids, :pets
 
-	def initialize(name,age,numb_of_kids,*pets)
-		@name = name
-		@age = age
+	def initialize(person_name,person_age,numb_of_kids,*pets)
+		@person_name = person_name
+		@person_age = person_age
 		@numb_of_kids = numb_of_kids
 		@pets = pets
 	end
