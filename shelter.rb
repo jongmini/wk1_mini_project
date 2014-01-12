@@ -13,33 +13,55 @@ class Shelter
 
 	end
 
-	def get_client_list
+	def get_client_list  #works!
 		#list all clients
-		result = @client_list.inject(""){ |master_list, info| master_list << info.name }
+		@client_list.inject(""){ |master_list, info| master_list << "#{info.name} #{info.pets}" }
 
-		result || ""
+		
 
 	end
 
 
-	def get_animal_list
+	def get_animal_list  #works!
 		#list all animals
 		#but also remove animals that have been adopted
-		result = @animal_list.inject(""){ |master_list, info| master_list << info.name }
-
-		result || ""
+		@animal_list.inject([]){ |master_list, info| master_list << info.name }
 
 	end
+
+	# def can_adopt?
+	# 	@animal_list.each do |info|
+	# 		if info.name == @animal
+	# 			@can_adopt = true
+	# 		else
+	# 			@can_adopt = false
+	# 		end
+	# 	end
+	# 	self.can_adopt?
+	# end
 
 	def adopts(client,animal)
 		#adopts an animal from the shelter
+		@client = client
+		@animal = animal
 
-		client_list.each do |info| 
-			if info.name = client 
-				client_list.pet << animal
+
+		@client_list.each do |info|  #psuedo for each client list
+			if info.name == @client #&& @can_adopt == true #if the name matches client's name
+				(info.pets).push(@animal)
+			else
 			end
+			
 		end
+		binding.pry
+		@animal_list = (self.get_animal_list).delete(@animal)
 
+		# if @client_list.name = @client
+		# 	(@client_list.pets).push(@animal)
+		# 	binding.pry
+		# end
+
+		#also need to take the adopted pet out of @animal_list
 
 	end
 

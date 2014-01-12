@@ -35,7 +35,8 @@ while choice != 'q'
 	message = ""
 	case choice
 	when "1"
-	message += shelter.get_animal_list
+
+	message = shelter.get_animal_list.join(",")
 
 	when "2"
 	
@@ -63,9 +64,18 @@ while choice != 'q'
 	shelter.client_list << Client.new(name,age,numb_of_kids,pets)
 # binding.pry
 	message = "added client #{shelter.client_list.last.name}"
+	# {shelter.client_list.last.age}
+	# {shelter.client_list.last.pets}"
 
-	# when 
-	# when 
+	when "5" #client adopts an animal
+	puts "enter the client's name"
+	print "name:"; client = gets.chomp
+	puts "enter the animal to adopt"
+	print "animal:"; animal = gets.chomp
+
+	shelter.adopts(client,animal)
+	message = "#{client} is adopting #{animal}."
+	
 	when "6"
 	puts "enter the client's name"
 	print "name:"; client = gets.chomp
