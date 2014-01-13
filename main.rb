@@ -39,11 +39,11 @@ while choice != 'q'
 	available_animals = shelter.get_available_animals()
     message = "List of avilable animals:\n"
     available_animals.each do |animal|
-    message += "#{animal.name} the #{animal.species} #{animal.owner}"
+    message += "#{animal.name} the #{animal.species}"
     end
 
-
-	# message = shelter.get_animal_list.join(",")
+ 	# list = shelter.get_animal_list
+	# message = list.join(",")
 
 	when "2"
 	
@@ -57,22 +57,56 @@ while choice != 'q'
 	print "species:"; species = gets.chomp
 	print "toys:"; toys = gets.chomp
 	
-	shelter.animal_list << Animal.new(name,age,gender,species,toys)
+	shelter.animal_list << Animal.new(name,age,gender,species,owner=nil,toys)
 
-	message = "added animal #{shelter.animal_list.last.name}"
+	message = "added animal #{shelter.animal_list.last.name}
+	there are #{shelter.animal_list}"
+
 
 	when "4"
 	puts "enter the client's name"
 	print "name:"; name = gets.chomp
 	print "age:"; age = gets.chomp
 	print "numb_of_kids:"; numb_of_kids = gets.chomp
-	print "pets:"; pets = gets.chomp
+	# print "pets:"; pets = gets.chomp
 
-	shelter.client_list << Client.new(name,age,numb_of_kids,pets)
-# binding.pry
-	message = "added client #{shelter.client_list.last.name}"
+
+	
 	# {shelter.client_list.last.age}
 	# {shelter.client_list.last.pets}"
+
+	#graham's idea
+
+	pets = true
+	while pets == true
+	puts "do you own a pet?"
+	answer = gets.chomp
+	
+		if answer == "yes"
+		print "pet's name:"; name = gets.chomp
+		print "pet's age:"; age = gets.chomp
+		print "pet's gender:"; gender = gets.chomp
+		print "pet's species:"; species = gets.chomp
+		print "pet's toys:"; toys = gets.chomp
+		
+		shelter.animal_list << Animal.new(name,age,gender,species,owner=true,toys)
+		pet_names =[]
+		pet_names << shelter.animal_list.last.name
+		# message += "added client #{shelter.client_list.last.name}"
+		message += "added pet #{shelter.animal_list.last.name}"
+
+		elsif answer == "no"
+
+		pets = false
+
+		end
+	end
+
+	shelter.client_list << Client.new(name,age,numb_of_kids,pet_names)
+	message = "added client #{shelter.client_list.last.name}  "
+# binding.pry
+	
+
 
 	when "5" #client adopts an animal
 
@@ -81,19 +115,42 @@ while choice != 'q'
 	print "name:"; client = gets.chomp
 	puts "enter the animal to adopt"
 	print "animal:"; animal = gets.chomp
-	shelter.adopts(client,animal)
 	
-	message = "#{client} is adopting #{animal}."
+	if not (shelter.get_client_list).include?(client)
+		message = "you are not a client"
+# binding.pry
+	elsif not (shelter.get_animal_list).include?(animal)
+# binding.pry
+		message = "animal is not in the shelter"
+	else
+		shelter.adopts(client,animal)
+		message = "#{client} is adopting #{animal}."
+	end
+	
+	
+	# message = "#{client} is adopting #{animal}."
 	
 	when "6"
 	puts "enter the client's name"
 	print "name:"; client = gets.chomp
 	puts "enter the pet's name"
 	print "pet:"; animal = gets.chomp
+# binding.pry
+	if (shelter.get_client_list).include?(client) && 
+		(shelter.get_adopted_animals.inject(""){|x,y| x << y.name}).include?(animal)
+		message = "#{client} is putting up #{animal} for adoption"
+binding.pry
+		shelter.puts_up(client,animal)
+# binding.pry
+	# elsif not (shelter.get_adopted_animals).include?(animal)
+	# 	message = "animal is not your pet"
+	else
+		# shelter.puts_up(client,animal)
+		# message = "#{client} is putting #{animal} for adoption."
+		message = "you are not a client or the animal is not available."
+	end
 
-	shelter.puts_up(client,animal)
-	message = "#{client} is putting up #{animal} for an adoption."
-	# binding.pry
+
 
 	else
 	end

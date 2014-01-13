@@ -15,10 +15,8 @@ class Shelter
 
 	def get_client_list  #works!
 		#list all clients
-		@client_list.inject(""){ |master_list, info| master_list << "#{info.name} #{info.pets}" }
-
+		@client_list.inject(""){ |master_list, info| master_list << "#{info.name} #{info.pets}"}
 		
-
 	end
 
 
@@ -29,16 +27,6 @@ class Shelter
 
 	end
 
-	# def can_adopt?
-	# 	@animal_list.each do |info|
-	# 		if info.name == @animal
-	# 			@can_adopt = true
-	# 		else
-	# 			@can_adopt = false
-	# 		end
-	# 	end
-	# 	self.can_adopt?
-	# end
 
 	def get_available_animals()
 
@@ -59,7 +47,7 @@ class Shelter
 		@client = client
 		@animal = animal
 
-
+		if 
 		@client_list.each do |info|  #psuedo for each client list
 			if info.name == @client #&& @can_adopt == true #if the name matches client's name
 # binding.pry
@@ -69,11 +57,12 @@ class Shelter
 					if x.name == @animal
 						x.owner = true
 
+						end
 					end
-				end
 			
 			end
 			
+			end
 		end
 # binding.pry
 		# @animal_list = (self.get_animal_list).delete(@animal)
@@ -89,8 +78,26 @@ class Shelter
 
 	def puts_up(client,animal)
 		#puts up a pet up for an adoption
-		@client = client #sam
-		@animal = animal #spot
+		@client = client 
+		@animal = animal 
+
+		if @client_list.each do |info|  #psuedo for each client list
+			if info.name == @client 
+# binding.pry
+				(info.pets).delete(@animal)
+
+				@animal_list.each do |x|
+					if x.name == @animal
+						x.owner = false
+
+						end
+					end
+			
+			end
+			
+			end
+		end
+
 
 	end
 
