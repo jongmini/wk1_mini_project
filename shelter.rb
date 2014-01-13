@@ -40,6 +40,20 @@ class Shelter
 	# 	self.can_adopt?
 	# end
 
+	def get_available_animals()
+
+		@animal_list.select { |x| x.owned? }
+# binding.pry
+
+	end
+
+	def get_adopted_animals
+		@animal_list.select do |animal|
+			not animal.owned?
+		end
+	end
+
+
 	def adopts(client,animal)
 		#adopts an animal from the shelter
 		@client = client
@@ -48,13 +62,21 @@ class Shelter
 
 		@client_list.each do |info|  #psuedo for each client list
 			if info.name == @client #&& @can_adopt == true #if the name matches client's name
+# binding.pry
 				(info.pets).push(@animal)
-			else
+
+				@animal_list.each do |x|
+					if x.name == @animal
+						x.owner = true
+
+					end
+				end
+			
 			end
 			
 		end
-		binding.pry
-		@animal_list = (self.get_animal_list).delete(@animal)
+# binding.pry
+		# @animal_list = (self.get_animal_list).delete(@animal)
 
 		# if @client_list.name = @client
 		# 	(@client_list.pets).push(@animal)
@@ -69,25 +91,6 @@ class Shelter
 		#puts up a pet up for an adoption
 		@client = client #sam
 		@animal = animal #spot
-
-
-
-# 		if client.person_name = @client
-# binding.pry
-# 			puts @client
-# 		end
-
-
-
-			# if @client_list.include?(@client) && @animal_list.include?(@animal)
-			#take that animal out of the animal_list
-			#put that animal into the client's pets array
-
-
-
-		# else
-		# 	return "you don't own #{@animal}"
-		# end
 
 	end
 

@@ -6,9 +6,9 @@ require 'pry'
 
 shelter = Shelter.new
 
-shelter.animal_list << Animal.new("kitty","2","f","cat","ball")
-shelter.animal_list << Animal.new("garfield","4","m","cat","otis")
-
+shelter.animal_list << Animal.new("kitty","2","f","cat",nil,"ball")
+shelter.animal_list << Animal.new("garfield","4","m","cat",nil,"otis")
+shelter.animal_list << Animal.new("otis","2","m","dog",nil,"ball")
 shelter.client_list << Client.new("jon","33","2","odie")
 shelter.client_list << Client.new("calvin","7","0","hobbes")
 
@@ -35,8 +35,15 @@ while choice != 'q'
 	message = ""
 	case choice
 	when "1"
+	
+	available_animals = shelter.get_available_animals()
+    message = "List of avilable animals:\n"
+    available_animals.each do |animal|
+    message += "#{animal.name} the #{animal.species} #{animal.owner}"
+    end
 
-	message = shelter.get_animal_list.join(",")
+
+	# message = shelter.get_animal_list.join(",")
 
 	when "2"
 	
@@ -68,12 +75,14 @@ while choice != 'q'
 	# {shelter.client_list.last.pets}"
 
 	when "5" #client adopts an animal
+
+
 	puts "enter the client's name"
 	print "name:"; client = gets.chomp
 	puts "enter the animal to adopt"
 	print "animal:"; animal = gets.chomp
-
 	shelter.adopts(client,animal)
+	
 	message = "#{client} is adopting #{animal}."
 	
 	when "6"
