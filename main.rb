@@ -9,8 +9,8 @@ shelter = Shelter.new
 shelter.animal_list << Animal.new("kitty","2","f","cat",nil,"ball")
 shelter.animal_list << Animal.new("garfield","4","m","cat",nil,"otis")
 shelter.animal_list << Animal.new("otis","2","m","dog",nil,"ball")
-shelter.client_list << Client.new("jon","33","2","odie")
-shelter.client_list << Client.new("calvin","7","0","hobbes")
+shelter.client_list << Client.new("jon","33","2",Animal.new("odie","3","m","dog",true,"balls"))
+# shelter.client_list << Client.new("calvin","7","0","hobbes")
 
 def menu message
   puts `clear`
@@ -39,7 +39,7 @@ while choice != 'q'
 	available_animals = shelter.get_available_animals()
     message = "List of avilable animals:\n"
     available_animals.each do |animal|
-    message += "#{animal.name} the #{animal.species}"
+    message += "#{animal.name} the #{animal.species} \n"
     end
 
  	# list = shelter.get_animal_list
@@ -90,8 +90,8 @@ while choice != 'q'
 		print "pet's toys:"; toys = gets.chomp
 		
 		shelter.animal_list << Animal.new(name,age,gender,species,owner=true,toys)
-		pet_names =[]
-		pet_names << shelter.animal_list.last.name
+		# pet_names =[]
+		# pet_names << shelter.animal_list.last.name
 		# message += "added client #{shelter.client_list.last.name}"
 		message += "added pet #{shelter.animal_list.last.name}"
 
@@ -131,27 +131,26 @@ while choice != 'q'
 	# message = "#{client} is adopting #{animal}."
 	
 	when "6"
-	puts "enter the client's name"
-	print "name:"; client = gets.chomp
-	puts "enter the pet's name"
-	print "pet:"; animal = gets.chomp
-# binding.pry
-	if (shelter.get_client_list).include?(client) && 
-		(shelter.get_adopted_animals.inject(""){|x,y| x << y.name}).include?(animal)
-		message = "#{client} is putting up #{animal} for adoption"
-binding.pry
-		shelter.puts_up(client,animal)
-# binding.pry
-	# elsif not (shelter.get_adopted_animals).include?(animal)
-	# 	message = "animal is not your pet"
-	else
-		# shelter.puts_up(client,animal)
-		# message = "#{client} is putting #{animal} for adoption."
-		message = "you are not a client or the animal is not available."
-	end
-
-
-
+		puts "enter the client's name"
+		print "name:"; client = gets.chomp
+		if shelter.client_list.map{|info| info.name }.include?(client)
+			puts "enter the pet's name"
+			print "pet:"; animal = gets.chomp
+		 	if (shelter.animal_list.map{|info| info.name }).include?(animal)
+				message = "#{client} is putting up #{animal} for adoption"
+				binding.pry
+				shelter.puts_up(client,animal)
+				# binding.pry
+				# elsif not (shelter.get_adopted_animals).include?(animal)
+				# 	message = "animal is not your pet"
+			else
+				# shelter.puts_up(client,animal)
+				# message = "#{client} is putting #{animal} for adoption."
+				message = "the animal is not available."
+			end
+		else
+			message = "you are not a client"
+		end
 	else
 	end
 	choice = menu message

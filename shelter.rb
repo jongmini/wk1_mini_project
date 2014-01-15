@@ -31,7 +31,7 @@ class Shelter
 	def get_available_animals()
 
 		@animal_list.select { |x| x.owned? }
-# binding.pry
+		# binding.pry
 
 	end
 
@@ -44,17 +44,16 @@ class Shelter
 
 	def adopts(client,animal)
 		#adopts an animal from the shelter
-		@client = client
-		@animal = animal
 
-		if 
+
+		 
 		@client_list.each do |info|  #psuedo for each client list
-			if info.name == @client #&& @can_adopt == true #if the name matches client's name
-# binding.pry
-				(info.pets).push(@animal)
+			if info.name == client #&& @can_adopt == true #if the name matches client's name
+				# binding.pry
+				(info.pets).push(animal)
 
 				@animal_list.each do |x|
-					if x.name == @animal
+					if x.name == animal
 						x.owner = true
 
 						end
@@ -62,9 +61,9 @@ class Shelter
 			
 			end
 			
-			end
 		end
-# binding.pry
+		
+		# binding.pry
 		# @animal_list = (self.get_animal_list).delete(@animal)
 
 		# if @client_list.name = @client
@@ -78,26 +77,18 @@ class Shelter
 
 	def puts_up(client,animal)
 		#puts up a pet up for an adoption
-		@client = client 
-		@animal = animal 
 
-		if @client_list.each do |info|  #psuedo for each client list
-			if info.name == @client 
-# binding.pry
-				(info.pets).delete(@animal)
+		client_object = @client_list.detect { |info| info.name == client }
+		binding.pry
+		client_object.pets.delete(animal)
 
-				@animal_list.each do |x|
-					if x.name == @animal
-						x.owner = false
+				
+		@animal_list.each do |x|
+			if x.name == animal
+				x.owner = false
 
-						end
-					end
-			
-			end
-			
 			end
 		end
-
 
 	end
 
